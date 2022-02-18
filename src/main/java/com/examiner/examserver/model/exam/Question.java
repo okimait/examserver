@@ -1,7 +1,9 @@
 package com.examiner.examserver.model.exam;
 
 import com.examiner.examserver.model.questionSection.sections;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -31,17 +34,27 @@ public class Question {
     @Embedded
     private SubQuestion subQuestion;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "sub_module_id", referencedColumnName = "subModuleId")
     private subModule subModule;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "section_id", referencedColumnName = "sectionId")
-    @JsonIgnore
+    @JsonBackReference
     private sections sections;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Question)) return false;
+        Question question = (Question) o;
+        return getQuestionId().equals(question.getQuestionId());
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(getQuestionId());
+    }
 }

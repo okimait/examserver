@@ -26,10 +26,9 @@ public class QuestionController {
     private examService thisExamService;
 
     /*add a question*/
-    @PostMapping("/question")
+    @PostMapping("/")
     @CrossOrigin("*")
     public ResponseEntity<Question> add(@RequestBody Question question) {
-        Question question1 = this.questionService.addQuestion(question);
         return ResponseEntity.ok(this.questionService.addQuestion(question));
     }
 

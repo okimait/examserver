@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name ="program" )
 public class program {
     @Id
@@ -33,11 +33,20 @@ public class program {
   @JoinColumn(name = "program_category_id", referencedColumnName = "programCategoryId")
   private programCategory programCategory;
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Set<exam> ProgramExams = new LinkedHashSet<>();
 
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof program)) return false;
+    program program = (program) o;
+    return getProgramId().equals(program.getProgramId());
+  }
 
-
-
+  @Override
+  public int hashCode() {
+    return Objects.hash(getProgramId());
+  }
 }

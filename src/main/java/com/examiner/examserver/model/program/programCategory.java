@@ -1,11 +1,9 @@
 package com.examiner.examserver.model.program;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import net.bytebuddy.dynamic.scaffold.MethodGraph;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -22,6 +20,17 @@ public class programCategory {
     private String programCategoryDescription;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private Set<program> CatetegoryPrograms = new LinkedHashSet<>();
+    private Set<program> CategoryProgram = new LinkedHashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof programCategory)) return false;
+        programCategory that = (programCategory) o;
+        return getProgramCategoryId().equals(that.getProgramCategoryId());
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProgramCategoryId());
+    }
 }

@@ -13,9 +13,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @AttributeOverrides({
-        @AttributeOverride(name = "Content",column = @Column(name = "subquestionContent")),
-        @AttributeOverride(name = "Marks", column = @Column(name = "subquestionMarks")),
-        @AttributeOverride(name = "Answer", column = @Column(name = "subquestionAnswer"))
+        @AttributeOverride(name = "Content",column = @Column(name = "subquestion_content")),
+        @AttributeOverride(name = "Marks", column = @Column(name = "subquestion_marks")),
+        @AttributeOverride(name = "Answer", column = @Column(name = "subquestion_answer"))
         })
 public class SubQuestion {
     private String Content;

@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -30,7 +31,19 @@ public class subModule {
     @JoinColumn(name = "exam_id", referencedColumnName = "examId")
     private exam exam;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Question> questions = new LinkedHashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof subModule)) return false;
+        subModule subModule = (subModule) o;
+        return getSubModuleId().equals(subModule.getSubModuleId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSubModuleId());
+    }
 }
