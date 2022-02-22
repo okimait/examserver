@@ -2,6 +2,7 @@ package com.examiner.examserver.model.exam;
 
 import com.examiner.examserver.model.program.program;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -13,10 +14,8 @@ import java.util.Set;
 
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 @Table(name = "exam")
 public class exam {
     @Id
@@ -34,7 +33,8 @@ public class exam {
     @JoinColumn(name = "program_id", referencedColumnName = "programId")
     private program program;
 
-    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<subModule> subModules = new LinkedHashSet<>();
 
     @Override
@@ -49,4 +49,5 @@ public class exam {
     public int hashCode() {
         return Objects.hash(getExamId());
     }
+
 }

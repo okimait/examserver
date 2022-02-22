@@ -1,6 +1,7 @@
 package com.examiner.examserver.service;
 
 
+import com.examiner.examserver.model.exam.exam;
 import com.examiner.examserver.model.program.program;
 import com.examiner.examserver.model.program.programCategory;
 
@@ -19,5 +20,9 @@ public interface programService {
     public void deleteProgram(Long programId);
 
     public List<program> getProgramsOfCategory(programCategory programCategory);
+
+
+
+
 
 }

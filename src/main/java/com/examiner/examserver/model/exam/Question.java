@@ -12,14 +12,11 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
-
+import java.util.*;
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 @Table(name = "question")
 public class Question {
     @Id
@@ -29,29 +26,16 @@ public class Question {
     private String mainquestionContent;
     private boolean mainquestionStatus = false;
     private Integer mainquestionMarks;
+    @Column(length = 50000)
     private String manquestionAnswer;
 
-    @Embedded
-    private SubQuestion subQuestion;
-
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sub_module_id", referencedColumnName = "subModuleId")
     private subModule subModule;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "section_id", referencedColumnName = "sectionId")
-    @JsonBackReference
     private sections sections;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Question)) return false;
-        Question question = (Question) o;
-        return getQuestionId().equals(question.getQuestionId());
-    }
 
     @Override
     public int hashCode() {

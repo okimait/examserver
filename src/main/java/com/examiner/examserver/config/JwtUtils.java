@@ -15,7 +15,7 @@ import java.util.function.Function;
 public class JwtUtils {
 
 
-        private String SECRET_KEY = "examiner";
+        private String SECRET_KEY = "okimait";
 
         public String extractUsername(String token) {
             return extractClaim(token, Claims::getSubject);

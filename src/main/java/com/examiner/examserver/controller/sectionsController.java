@@ -16,10 +16,10 @@ public class sectionsController {
     private sectionsService sectionsService;
 
     /*add a section*/
-    @PostMapping("/sections")
+    @PostMapping("/")
     public ResponseEntity<sections> addSection(@RequestBody sections sections){
-        sections sections1 = this.sectionsService.addSection(sections);
-        return ResponseEntity.ok(sections1);
+
+        return ResponseEntity.ok(sectionsService.addSection(sections));
     }
 
     /*get a section*/
@@ -38,9 +38,9 @@ public class sectionsController {
 
     /*update a section*/
     @PutMapping("/")
-    public sections sections(@RequestBody sections sections)
+    public ResponseEntity<sections>add (@RequestBody sections sections)
     {
-        return this.sectionsService.updateSection(sections);
+        return ResponseEntity.ok(sectionsService.updateSection(sections));
     }
 
     /*delete section*/

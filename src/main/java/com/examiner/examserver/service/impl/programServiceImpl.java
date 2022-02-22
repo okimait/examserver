@@ -1,5 +1,6 @@
 package com.examiner.examserver.service.impl;
 
+import com.examiner.examserver.model.exam.exam;
 import com.examiner.examserver.model.program.program;
 import com.examiner.examserver.model.program.programCategory;
 import com.examiner.examserver.repo.programRepository;
@@ -29,6 +30,7 @@ public class programServiceImpl implements programService {
     public Set<program> getPrograms() {
         return new HashSet<program>(this.programRepository.findAll());
     }
+
     @Override
     public program getProgram(Long programId) {
         return this.programRepository.findById(programId).get();
@@ -44,4 +46,5 @@ public class programServiceImpl implements programService {
     public List<program> getProgramsOfCategory(programCategory programCategory) {
         return this.programRepository.findByProgramCategory(programCategory);
     }
+
 }

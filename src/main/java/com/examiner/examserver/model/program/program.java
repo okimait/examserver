@@ -1,7 +1,6 @@
 package com.examiner.examserver.model.program;
-
-
 import com.examiner.examserver.model.exam.exam;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
@@ -12,12 +11,11 @@ import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
-
-@Entity
-@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Entity
 @Table(name ="program" )
 public class program {
     @Id
@@ -26,6 +24,7 @@ public class program {
   private String programName;
   private String programCode;
   private String numberOfModules;
+  @Column(length = 50000)
   private String programDescription;
 
   @ManyToOne(fetch = FetchType.EAGER)
@@ -36,7 +35,6 @@ public class program {
   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Set<exam> ProgramExams = new LinkedHashSet<>();
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -44,9 +42,9 @@ public class program {
     program program = (program) o;
     return getProgramId().equals(program.getProgramId());
   }
-
   @Override
   public int hashCode() {
     return Objects.hash(getProgramId());
   }
+
 }

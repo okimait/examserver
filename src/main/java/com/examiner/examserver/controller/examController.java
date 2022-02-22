@@ -1,10 +1,20 @@
 package com.examiner.examserver.controller;
 
+import com.examiner.examserver.model.exam.Question;
 import com.examiner.examserver.model.exam.exam;
+import com.examiner.examserver.model.exam.subModule;
+import com.examiner.examserver.model.program.program;
 import com.examiner.examserver.service.examService;
+import com.examiner.examserver.service.programService;
+import com.examiner.examserver.service.subModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -13,6 +23,9 @@ public class examController {
 
     @Autowired
     private  examService examService;
+    @Autowired
+    private programService _programService;
+
     /*add exam*/
     @PostMapping("/")
     public ResponseEntity<exam> add(@RequestBody exam exam)
@@ -47,9 +60,19 @@ public class examController {
         this.examService.deleteExam(examId);
     }
 
+    @GetMapping("/program/{programId}")
+    @CrossOrigin("*")
+    public ResponseEntity<?> getModulesOfProgram(@PathVariable("programId") Long programId) {
+        program program = new program();
+        program.setProgramId(programId);
+        Set<exam> programModules = examService.getModulesOfProgram(program);
+        return ResponseEntity.ok(programModules);
+    }
+    }
 
 
 
 
 
-}
+
+

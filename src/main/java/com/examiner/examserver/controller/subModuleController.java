@@ -1,5 +1,6 @@
 package com.examiner.examserver.controller;
 
+import com.examiner.examserver.model.exam.Question;
 import com.examiner.examserver.model.exam.exam;
 import com.examiner.examserver.model.exam.subModule;
 import com.examiner.examserver.service.examService;
@@ -7,6 +8,11 @@ import com.examiner.examserver.service.subModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -52,5 +58,8 @@ public class subModuleController {
     {
         this.subModuleService.deleteSubModule(subModuleId);
     }
+
+    /*get all questions of any submodule using subModuleId*/
+
 
 }

@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/program")
 public class programController {
     @Autowired
     private programService thisProgramService;
 
 //    add a new program
-    @PostMapping("/program")
+    @PostMapping("/")
     @CrossOrigin("*")
     @JsonIgnore
     public ResponseEntity<program>add(@RequestBody program program){
-        program program1 = thisProgramService.addProgram(program);
-        return ResponseEntity.ok(program1);
+        return ResponseEntity.ok(thisProgramService.addProgram(program));
     }
 //    update a program
     @PutMapping("/program")
@@ -33,7 +32,7 @@ public class programController {
     }
     /*get all programs*/
     @CrossOrigin("*")
-    @GetMapping("/program")
+    @GetMapping("/")
     @JsonIgnore
     public ResponseEntity<?> allPrgorams()
     {

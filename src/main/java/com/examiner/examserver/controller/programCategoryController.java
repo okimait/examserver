@@ -19,18 +19,18 @@ public class programCategoryController {
         return ResponseEntity.ok(programCategory1);
     }
 
-    /*get category*/
-    @GetMapping("/{programCategoryId}")
-    public programCategory programCategory(@PathVariable("programCategoryId") Long programCategoryId)
-    {
-        return this.programCategoryService.getProgramCategory(programCategoryId);
-    }
-
     /*get all categories*/
     @GetMapping("/")
     public ResponseEntity<?> getProgramCategories()
     {
         return ResponseEntity.ok(this.programCategoryService.getProgramCategories());
+    }
+
+    /*get  single category*/
+
+    @GetMapping("/{programCategoryId}")
+    public programCategory getProgramCategory(@PathVariable("programCategoryId") Long programCategoryId){
+        return programCategoryService.getProgramCategory(programCategoryId);
     }
 
     /*update category*/
