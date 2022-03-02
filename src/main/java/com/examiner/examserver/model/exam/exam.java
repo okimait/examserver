@@ -44,7 +44,6 @@ public class exam {
         exam exam = (exam) o;
         return getExamId().equals(exam.getExamId());
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(getExamId());
